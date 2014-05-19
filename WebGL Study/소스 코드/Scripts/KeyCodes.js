@@ -1,0 +1,6 @@
+﻿
+
+VK_LEFT = 37
+VK_UP = 38
+VK_RIGHT = 39
+VK_DOWN = 40
