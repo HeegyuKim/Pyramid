@@ -94,9 +94,9 @@ Player.prototype.setup = function (program) {
 	gl.vertexAttribPointer(program.pos, 3, gl.FLOAT, false, 0, 0)
 
 
-	mat4.identity(i4)
-	mat4.identity(xf)
-	mat4.rotate
+	mat4.identity(this.i4)
+	mat4.identity(this.xf)
+
 	gl.uniformMatrix4fv(program.xf, false, this.xf)
 
 }
