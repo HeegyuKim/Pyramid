@@ -2,88 +2,90 @@
 
 
 function BasicGameScene() {
-    var vertices = [
-		 0, 1, -0.5,
-		 0, -1, -0.5,
-		 1, 0, -0.5,
-		]
 
-    this.program = new Program(
+	this.program = new Program(
 			$('#IVSBasic').text(),
 			$('#IFSBasic').text())
-    
+	
 	try {
 		Log.e(this.program.msg, "Failed to create Basic OpenGL program.")
-    }
-    catch (e) {
-    	console.log(e.name + " issued: " + e.message)
-    	return;
-    }
-
-	gl.useProgram(this.program.program)
-	
-
-	this.buffer = gl.createBuffer()
-	gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer)
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW)
-
+	}
+	catch (e) {
+		console.log(e.name + " issued: " + e.message)
+		return;
+	}
 
 	this.program.pos = gl.getAttribLocation(this.program.program, 'pos')
 	gl.enableVertexAttribArray(this.program.pos)
-	gl.vertexAttribPointer(this.program.pos, 3, gl.FLOAT, false, 0, 0)
 
 
 	// set uniforms
 	this.program.proj = gl.getUniformLocation(this.program.program, 'proj')
 	this.program.view = gl.getUniformLocation(this.program.program, 'view')
 	this.program.xf = gl.getUniformLocation(this.program.program, 'xf')
+	this.program.color = gl.getUniformLocation(this.program.program, 'color')
 
+
+
+
+
+	this.i4 = mat4.create()
+	this.proj = mat4.create()
+	this.view = mat4.create()
+	this.xf = mat4.create()
+
+
+	mat4.perspective(this.proj, 90, 800.0 / 600.0, 0.1, 100)
+
+
+	var bound = {
+		min: [-5, -5, -5],
+		max: [5, 5, 5]
+	}
+
+	this.player = new Player([0, 0, 0], [0, 0, -1], [0, 1, 0], bound)
+
+
+
+	gl.clearColor(0, 0, 0, 1)
+	gl.clearDepth(1)
+
+	gl.enable(gl.DEPTH_TEST)
 }
-
-
-var i4 = mat4.create()
-var proj = mat4.create()
-var view = mat4.create()
-var xf = mat4.create()
-
-var angle = 0
-var x = 0
 
 BasicGameScene.prototype.render = function () {
 
-	gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer)
+    gl.useProgram(this.program.program)
 
-	mat4.perspective(proj, 90, 800.0 / 600.0, 0.1, 100)
-	gl.uniformMatrix4fv(this.program.proj, false, proj)
+	mat4.identity(this.i4)
+	mat4.identity(this.view)
+	mat4.identity(this.xf)
 
-	mat4.lookAt(view, [0, 0, 5], [0, 0, 0], [0, 1, 0])
-	gl.uniformMatrix4fv(this.program.view, false, view)
 
-	if (key[37]) {
-		angle += 0.1
-		x -= 0.1
-	}
-	if (key[39]) {
-		angle -= 0.1
-		x += 0.1
-	}
 
-	if (angle < -6.2)
-		angle = 0
-	else if (angle > 6.2)
-		angle = 0
+	var viewPos = vec3.clone(this.player.pos)
+	viewPos[1] += 2
+	viewPos[2] += 2
 
-	mat4.identity(i4)
+	var look = vec3.clone(this.player.vel)
+	vec3.add(look, this.player.pos, look)
 
-	mat4.translate(xf, i4, [x, 0, 0])
-	mat4.rotateY(i4, xf, angle)
-	gl.uniformMatrix4fv(this.program.xf, false, i4)
+	mat4.lookAt(this.view, viewPos, look, this.player.up)
+
+	gl.uniformMatrix4fv(this.program.proj, false, this.proj)
+	gl.uniformMatrix4fv(this.program.view, false, this.view)
+
+
+
 
 	gl.clearColor(0, 0, 0, 1)
-	gl.clear(gl.COLOR_BUFFER_BIT)
+	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 
 
-	gl.drawArrays(gl.TRIANGLES, 0, 3)
+
+
+    this.player.setup(this.program)
+    this.player.draw(this.program)
 }
 
 
@@ -100,7 +102,7 @@ BasicGameScene.prototype.update = function (delta) {
 
 BasicGameScene.prototype.isEnded = function () {
 
-    return false
+	return false
 }
 
 
@@ -110,7 +112,7 @@ BasicGameScene.prototype.isEnded = function () {
 BasicGameScene.prototype.getNext = function () {
 
 
-    return null
+	return null
 }
 
 
@@ -118,5 +120,5 @@ BasicGameScene.prototype.getNext = function () {
 BasicGameScene.prototype.dispose = function () {
 
 
-    return null
+	return null
 }

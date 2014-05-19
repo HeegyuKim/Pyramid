@@ -2,79 +2,83 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
+	<title></title>
 
-    <!--
-        Stylesheets
-        -->
-    <link rel="stylesheet" href="styles.css" />
-
-
-
-    
-    <!--
-        Externel Libraries
-        - glMatrix script sources
-        - JQuery 2.1.1
-        -->
-    <script src="ExternelScripts/glMatrix/common.js"></script>
-    <script src="ExternelScripts/glMatrix/vec2.js"></script>
-    <script src="ExternelScripts/glMatrix/vec3.js"></script>
-    <script src="ExternelScripts/glMatrix/vec4.js"></script>
-    <script src="ExternelScripts/glMatrix/mat2.js"></script>
-    <script src="ExternelScripts/glMatrix/mat2d.js"></script>
-    <script src="ExternelScripts/glMatrix/mat3.js"></script>
-    <script src="ExternelScripts/glMatrix/mat4.js"></script>
-    <script src="ExternelScripts/glMatrix/quat.js"></script>
-
-    <script src="ExternelScripts/jquery-2.1.1.min.js"></script>
+	<!--
+		Stylesheets
+		-->
+	<link rel="stylesheet" href="styles.css" />
 
 
-    <!--
-        My own sources
 
-        -->
-    <script src="Scripts/webgl.js"></script>
-    <script src="Scripts/Log.js"></script>
+	
+	<!--
+		Externel Libraries
+		- glMatrix script sources
+		- JQuery 2.1.1
+		-->
+	<script src="ExternelScripts/glMatrix/common.js"></script>
+	<script src="ExternelScripts/glMatrix/vec2.js"></script>
+	<script src="ExternelScripts/glMatrix/vec3.js"></script>
+	<script src="ExternelScripts/glMatrix/vec4.js"></script>
+	<script src="ExternelScripts/glMatrix/mat2.js"></script>
+	<script src="ExternelScripts/glMatrix/mat2d.js"></script>
+	<script src="ExternelScripts/glMatrix/mat3.js"></script>
+	<script src="ExternelScripts/glMatrix/mat4.js"></script>
+	<script src="ExternelScripts/glMatrix/quat.js"></script>
+
+	<script src="ExternelScripts/jquery-2.1.1.min.js"></script>
+
+
+	<!--
+		My own sources
+
+		-->
+	<script src="Scripts/webgl.js"></script>
+	<script src="Scripts/Log.js"></script>
 	<script src="Scripts/Rect3D.js"></script>
+	<script src="Scripts/Player.js"></script>
+	<script src="Scripts/KeyCodes.js"></script>
 
-    <script src="main.js"></script>
-    <script src="Scripts/BasicGameScene.js"></script>
+	<script src="main.js"></script>
+	<script src="Scripts/BasicGameScene.js"></script>
 
 
-    <!--
-        GLSL sources
-        -->
-    <script id="IVSBasic" type="VertexShader">
-        attribute vec3 pos;
+	<!--
+		GLSL sources
+		-->
+	<script id="IVSBasic" type="VertexShader">
+		attribute vec3 pos;
 		uniform mat4 proj;
 		uniform mat4 view;
 		uniform mat4 xf;
 
-        void main() {
-            gl_Position = proj * view * xf * vec4(pos, 1);
-        }
-    </script>
-    <script id="IFSBasic" type="FragmentShader">
-        void main() {
-            gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-        }  
-    </script>
+		void main() {
+			gl_Position = proj * view * xf * vec4(pos, 1);
+		}
+	</script>
+	<script id="IFSBasic" type="FragmentShader">
+        precision mediump float;
+		uniform vec4 color;
+		void main() {
+			gl_FragColor = color;
+		}  
+	</script>
 
 </head>
-    
+	
 
 
 <!--
 
-    Web pages
+	Web pages
 
 
-    -->
+	-->
 <body>
 
-    <canvas id="IGameCanvas" width="800" height="600">
-        HTML Canvas element does not supported.
-    </canvas>
+	<canvas id="IGameCanvas" width="800" height="600">
+		HTML Canvas element does not supported.
+	</canvas>
 </body>
 </html>

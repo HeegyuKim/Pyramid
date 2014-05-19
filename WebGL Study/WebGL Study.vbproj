@@ -200,7 +200,9 @@
     <Content Include="소스 코드\ExternelScripts\glMatrix\vec4.js" />
     <Content Include="소스 코드\ExternelScripts\jquery-2.1.1.min.js" />
     <Content Include="소스 코드\Scripts\BasicGameScene.js" />
+    <Content Include="소스 코드\Scripts\KeyCodes.js" />
     <Content Include="소스 코드\Scripts\Log.js" />
+    <Content Include="소스 코드\Scripts\Player.js" />
     <Content Include="소스 코드\Scripts\Rect3D.js" />
     <Content Include="소스 코드\Scripts\webgl.js" />
     <Content Include="web.config" />
