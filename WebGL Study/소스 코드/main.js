@@ -35,6 +35,9 @@ $(document).ready(function () {
     
     // get webgl context
     gl = canvas.getContext('experimental-webgl')
+    if (!gl)
+        return
+
 	gl.viewport(0, 0, canvas.width, canvas.height)
 	console.log(canvas.width + ' ' + canvas.height)
 

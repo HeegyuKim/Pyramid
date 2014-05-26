@@ -188,6 +188,7 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <Content Include="소스 코드\Images\Koala.jpg" />
     <Content Include="소스 코드\main.js" />
     <Content Include="소스 코드\ExternelScripts\glMatrix\common.js" />
     <Content Include="소스 코드\ExternelScripts\glMatrix\mat2.js" />
@@ -211,9 +212,7 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="소스 코드\Images\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="소스 코드\index.html" />
     <Content Include="소스 코드\styles.css" />

@@ -47,17 +47,24 @@
         -->
     <script id="IVSBasic" type="VertexShader">
         attribute vec3 pos;
+        attribute vec2 tex;
+
 		uniform mat4 proj;
 		uniform mat4 view;
 		uniform mat4 xf;
 
+        varying mediump vec2 texCoord;
+
         void main() {
             gl_Position = proj * view * xf * vec4(pos, 1);
+            texCoord = tex;
         }
     </script>
     <script id="IFSBasic" type="FragmentShader">
+        varying mediump vec2 texCoord;
+        uniform sampler2D samp;
         void main() {
-            gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+            gl_FragColor = texture2D(samp, texCoord);
         }  
     </script>
 
