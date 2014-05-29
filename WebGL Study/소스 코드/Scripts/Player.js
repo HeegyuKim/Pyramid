@@ -53,7 +53,6 @@ function Player(p, bound) {
 	
 	this.i4 = mat4.create()
 	this.xf = mat4.create()
-	this.rot = mat4.create()
 }
 
 
@@ -65,14 +64,19 @@ function clamp(v, min, max) {
 
 Player.prototype.update = function (delta) 
 {
-	identity(this.rot)
-
-	if(key[VK_LEFT] && !key[VK_RIGHT]) {
-		mat4.rotate(this.rot, this.i4, 0.01, this.up)
+	if (key[VK_LEFT]) {
+		this.pos[0] -= 0.1
+		console.log('left down')
 	}
 	else if (key[VK_RIGHT]) {
-		mat4.rotate(this.rot, this.i4, -0.01, this.up)
+		this.pos[0] += 0.1
+		console.log('right down')
 	}
+	else
+		return;
+
+	console.log(this.pos)
+	console.log(this.xf)
 
 	var newVel = vec3.clone(this.pos)
 
@@ -81,8 +85,8 @@ Player.prototype.update = function (delta)
 
 	//
 	// 위치 값을 제한한다
-	for(var i = 0; i < 3; ++i)
-		this.pos[i] = clamp(this.pos[i], this.bound.min[i], this.bound.max[i])
+	//for(var i = 0; i < 3; ++i)
+	//	this.pos[i] = clamp(this.pos[i], this.bound.min[i], this.bound.max[i])
 
 
 }
@@ -95,8 +99,7 @@ Player.prototype.setup = function (program) {
 
 
 	mat4.identity(this.i4)
-	mat4.identity(this.xf)
-
+	mat4.translate(this.xf, this.i4, this.pos)
 	gl.uniformMatrix4fv(program.xf, false, this.xf)
 
 }

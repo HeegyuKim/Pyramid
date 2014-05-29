@@ -92,8 +92,7 @@ BasicGameScene.prototype.render = function () {
 
 
 BasicGameScene.prototype.update = function (delta) {
-
-
+	this.player.update(delta)
 }
 
 

@@ -204,6 +204,7 @@
     <Content Include="소스 코드\Scripts\Log.js" />
     <Content Include="소스 코드\Scripts\Player.js" />
     <Content Include="소스 코드\Scripts\Rect3D.js" />
+    <Content Include="소스 코드\Scripts\Texture.js" />
     <Content Include="소스 코드\Scripts\webgl.js" />
     <Content Include="web.config" />
     <None Include="web.Debug.config">
